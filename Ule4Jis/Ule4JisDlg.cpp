@@ -264,12 +264,13 @@ void Ule4JisDlg::showTaskTrayPopupMenu() {
 	CMenu menu;
 	menu.LoadMenu(IDR_MENU_TASKTRAY);
 
-	CMenu *subMenu = menu.GetSubMenu(0);
-	
+	CMenu* subMenu = menu.GetSubMenu(0);
+
 	// set menu state
 	if (this->keyEmulator->isStarted()) {
 		subMenu->EnableMenuItem(ID_TASKTRAY_START, MF_GRAYED);
-	} else {
+	}
+	else {
 		subMenu->EnableMenuItem(ID_TASKTRAY_STOP, MF_GRAYED);
 	}
 
@@ -278,7 +279,14 @@ void Ule4JisDlg::showTaskTrayPopupMenu() {
 	//} else {
 	//	subMenu->GetSubMenu(0)->EnableMenuItem(ID_STRATEGY_JISONUS, MF_GRAYED);
 	//}
-	subMenu->TrackPopupMenu(TPM_BOTTOMALIGN | TPM_RIGHTALIGN, point.x, point.y, this);
+	SetForegroundWindow();
+	int cmd = subMenu->TrackPopupMenu(
+		TPM_BOTTOMALIGN | TPM_RIGHTALIGN | TPM_RIGHTBUTTON | TPM_RETURNCMD,
+		point.x, point.y, this);
+
+	if (cmd != 0) {
+		PostMessage(WM_COMMAND, cmd, 0);
+	}
 }
 
 void Ule4JisDlg::OnSize(UINT nType, int cx, int cy)
@@ -345,7 +353,7 @@ BOOL CAboutDlg::OnInitDialog()
 	// TODO:  ここに初期化を追加してください
 
 	// get hand cursor handle
-	this->handCursor = ::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HAND));
+	this->handCursor = ::LoadCursor(NULL, IDC_HAND);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 例外 : OCX プロパティ ページは必ず FALSE を返します。

@@ -45,6 +45,9 @@ BOOL Ule4JisApp::InitInstance()
 	InitCtrls.dwICC = ICC_WIN95_CLASSES;
 	InitCommonControlsEx(&InitCtrls);
 
+	CString cmdLine(m_lpCmdLine);
+	bool hidden = (cmdLine.Find(_T("/hidden")) != -1);
+
 	CWinApp::InitInstance();
 
 	// 標準初期化
@@ -65,21 +68,28 @@ BOOL Ule4JisApp::InitInstance()
 		return FALSE;
 	}
 
-	Ule4JisDlg dlg;
-	m_pMainWnd = &dlg;
-	INT_PTR nResponse = dlg.DoModal();
-	if (nResponse == IDOK)
-	{
-		// TODO: ダイアログが <OK> で消された時のコードを
-		//  記述してください。
+	Ule4JisDlg* dlg = new Ule4JisDlg;
+	dlg->Create(IDD_ULE4JIS_DIALOG);
+	if (hidden) {
+		// hide dialog
+		dlg->ShowWindow(SW_HIDE);
+	} else {
+		// show dialog
+		dlg->ShowWindow(SW_SHOW);
 	}
-	else if (nResponse == IDCANCEL)
+	m_pMainWnd = dlg;
+	CWinApp::Run();
+
+	return FALSE;
+}
+
+int Ule4JisApp::ExitInstance()
+{
+	if (m_pMainWnd != nullptr)
 	{
-		// TODO: ダイアログが <キャンセル> で消された時のコードを
-		//  記述してください。
+		delete m_pMainWnd;
+		m_pMainWnd = nullptr;
 	}
 
-	// ダイアログは閉じられました。アプリケーションのメッセージ ポンプを開始しないで
-	//  アプリケーションを終了するために FALSE を返してください。
-	return FALSE;
+	return CWinApp::ExitInstance();
 }

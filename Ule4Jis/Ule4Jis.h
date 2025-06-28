@@ -20,8 +20,9 @@ public:
 	Ule4JisApp();
 
 // オーバーライド
-	public:
+public:
 	virtual BOOL InitInstance();
+	virtual int ExitInstance();
 
 // 実装
 

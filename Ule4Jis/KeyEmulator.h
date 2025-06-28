@@ -8,7 +8,7 @@
 class KeyEmulator : public KeyHookEventListener {
 private:
 	EmulationMapType emulationMap;
-	std::auto_ptr<KeyHooker> hooker;
+	std::unique_ptr<KeyHooker> hooker;
 	KeyCondition keyCondition;
 
 private:

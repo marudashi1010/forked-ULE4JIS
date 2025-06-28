@@ -10,10 +10,10 @@
  */
 class PressAndReleaseDecorator : public Emulation {
 private:
-	std::auto_ptr<Emulation> emulation;
+	std::unique_ptr<Emulation> emulation;
 
 public:
-	PressAndReleaseDecorator(std::auto_ptr<Emulation> &emulation);
+	PressAndReleaseDecorator(std::unique_ptr<Emulation> emulation);
 	virtual ~PressAndReleaseDecorator();
 
 	virtual void executeDown(const KeyEmulator &emulator, const KeyCondition &cond);

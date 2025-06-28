@@ -31,7 +31,7 @@ private:
 // 実装
 protected:
 	HICON m_hIcon;
-	std::auto_ptr<KeyEmulator> keyEmulator;
+	std::unique_ptr<KeyEmulator> keyEmulator;
 
 	// 生成された、メッセージ割り当て関数
 	virtual BOOL OnInitDialog();

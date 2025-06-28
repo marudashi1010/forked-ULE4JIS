@@ -1,2 +1,17 @@
 .DS_Store
+.vs/
+Debug/
+Release/
+Ule4Jis/Debug/
+Ule4Jis/Release/
+UpgradeLog.htm
+*.log
+*.obj
+*.pdb
+*.ipch
+*.tlog
+*.suo
+*.user
+*.vc.db
+*.cache
 
